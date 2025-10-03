@@ -5,7 +5,7 @@ namespace Biblioteca_Virtual.Entities;
 
 public partial class Editorial
 {
-    public short Id { get; set; }
+    public int Id { get; set; }
 
     public string? Nombre { get; set; }
 

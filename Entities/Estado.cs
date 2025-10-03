@@ -13,13 +13,13 @@ public partial class Estado
 
     public DateTime? FechaDescripcion { get; set; }
 
-    public short? CreadoPor { get; set; }
+    public int? CreadoPor { get; set; }
 
     public DateTime? FechaCreacion { get; set; }
 
     public DateTime? UltimaActualizacion { get; set; }
 
-    public bool? Activo { get; set; }
+    public int? Activo { get; set; }
 
     public virtual Ejemplar? IdEjemplarNavigation { get; set; }
 }

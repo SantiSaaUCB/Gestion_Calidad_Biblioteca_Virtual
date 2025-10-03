@@ -17,7 +17,7 @@ public partial class PrestamoEjemplar
 
     public DateTime? UltimaActualizacion { get; set; }
 
-    public bool? Activo { get; set; }
+    public int? Activo { get; set; }
 
     public virtual Ejemplar IdEjemplarNavigation { get; set; } = null!;
 

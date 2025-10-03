@@ -5,7 +5,7 @@ namespace Biblioteca_Virtual.Entities;
 
 public partial class Usuario
 {
-    public short Id { get; set; }
+    public int Id { get; set; }
 
     public string? PrimerNombre { get; set; }
 
@@ -25,13 +25,13 @@ public partial class Usuario
 
     public string? Rol { get; set; }
 
-    public short? CreadoPor { get; set; }
+    public int? CreadoPor { get; set; }
 
     public DateTime? FechaCreacion { get; set; }
 
     public DateTime? UltimaActualizacion { get; set; }
 
-    public bool? Activo { get; set; }
+    public int? Activo { get; set; }
 
     public virtual ICollection<Prestamo> Prestamos { get; set; } = new List<Prestamo>();
 }
