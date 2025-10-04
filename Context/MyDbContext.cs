@@ -115,9 +115,6 @@ public partial class MyDbContext : DbContext
             entity.Property(e => e.Nombre)
                 .HasMaxLength(50)
                 .HasColumnName("nombre");
-            entity.Property(e => e.Pais)
-                .HasMaxLength(50)
-                .HasColumnName("pais");
             entity.Property(e => e.SitioWeb)
                 .HasMaxLength(50)
                 .HasColumnName("sitio_web");
