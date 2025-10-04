@@ -7,7 +7,7 @@ public partial class Libro
 {
     public int Id { get; set; }
 
-    public short? IdEditorial { get; set; }
+    public int? IdEditorial { get; set; }
 
     public string? Titulo { get; set; }
 
