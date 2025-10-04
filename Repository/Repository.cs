@@ -30,20 +30,25 @@ public class Repository<T>: IRepository<T> where T: class
         _dbSet.Add(entidad);
         await _context.SaveChangesAsync();
     }
-
+    
     public async Task Actualizar(T entidad)
     {
-        var entry = _context.Entry(entidad);
-        if (entry.State == EntityState.Detached)
-        {
-            _dbSet.Attach(entidad);
-        }
+        var keyName = _context.Model.FindEntityType(typeof(T))!
+            .FindPrimaryKey()!.Properties
+            .Select(x => x.Name).Single();
 
-        entry.State = EntityState.Modified;
+        var id = typeof(T).GetProperty(keyName)!.GetValue(entidad);
+
+        var existing = await _dbSet.FindAsync(id);
+        if (existing == null)
+            throw new Exception("Entity not found");
+
+        _context.Entry(existing).CurrentValues.SetValues(entidad);
 
         await _context.SaveChangesAsync();
     }
 
+    
     // Se usa "Update" en lugar de "Remove" Para aplicar la eliminacion logica (solo se cambia el atributo activo)
     public async Task Eliminar(T entidad)
     {

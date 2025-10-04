@@ -32,7 +32,15 @@ public class UsuarioService: IUsuarioService
 
     public async Task<List<Entities.Usuario>> ObtenerTodos()
     {
-        return await _repositoryFactory.ObtenerRepository<Entities.Usuario>().ObtenerTodos();
+        var usuarios = await _repositoryFactory.ObtenerRepository<Entities.Usuario>().ObtenerTodos();
+        List<Entities.Usuario> lista = new List<Entities.Usuario>();
+        foreach (var usuario in usuarios)
+        {
+            if (usuario.Activo == 1)
+                lista.Add(usuario);
+        }
+
+        return lista;
     }
 
     public async Task<Entities.Usuario?> ObtenerPorId(int id)
@@ -55,8 +63,19 @@ public class UsuarioService: IUsuarioService
 
     public async Task<Entities.Usuario?> Actualizar(Entities.Usuario entidad)
     {
+        var repo = _repositoryFactory.ObtenerRepository<Entities.Usuario>();
+        var existing = await repo.ObtenerPorId(entidad.Id);
+
+        if (existing == null)
+            throw new Exception("Usuario not found");
+
+        entidad.FechaCreacion = existing.FechaCreacion;
+        entidad.CreadoPor = existing.CreadoPor;
+        entidad.Activo = existing.Activo;
+        entidad.Rol = existing.Rol;
+        
         entidad.UltimaActualizacion = DateTime.Now;
-        await _repositoryFactory.ObtenerRepository<Entities.Usuario>().Actualizar(entidad);
+        await repo.Actualizar(entidad);
         return entidad;
     }
 
